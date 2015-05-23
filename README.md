@@ -25,6 +25,8 @@
 }
 ```
 
+Check the [test fixtures](test/fixtures/in) for more examples.
+
 ## Usage
 
 ```js
