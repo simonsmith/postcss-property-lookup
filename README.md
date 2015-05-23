@@ -1,12 +1,11 @@
-# PostCSS Property Lookup [![Build Status][ci-img]][ci]
+# postcss-property-lookup [![Build Status][ci-img]][ci]
 
-[PostCSS] plugin that allows referencing property values without a variable.
+[PostCSS] plugin that allows referencing property values without a variable, [similar to Stylus](https://learnboost.github.io/stylus/docs/variables.html#property-lookup).
 
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://travis-ci.org/simonsmith/postcss-property-lookup.svg
 [ci]:      https://travis-ci.org/simonsmith/postcss-property-lookup
 
-Property lookups [similar to Stylus](https://learnboost.github.io/stylus/docs/variables.html#property-lookup):
 
 ```css
 .Test {
