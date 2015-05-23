@@ -1,0 +1,28 @@
+.Parent {
+  margin: 20px;
+
+  .Child {
+    padding: @margin;
+  }
+}
+
+.Parent {
+  margin: 5px;
+
+  .Child {
+    margin: 10px;
+    padding: @margin;
+  }
+}
+
+.Parent {
+  margin: 1px;
+
+  .Child {
+    margin: 2px;
+
+    .GrandChild {
+      padding: @margin;
+    }
+  }
+}
