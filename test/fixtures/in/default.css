@@ -9,7 +9,12 @@
 .Test2 {
   margin-left: 400px;
   margin-right: @margin-left;
-  border: @padding;
+}
+
+.Test3 {
+  width: @padding;
+  height: @padding;
+  padding: 10px;
 }
 
 @media (min-width: 300px) {
