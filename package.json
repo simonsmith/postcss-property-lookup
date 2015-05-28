@@ -1,6 +1,6 @@
 {
     "name": "postcss-property-lookup",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "PostCSS plugin that allows referencing property values without a variable",
     "keywords": [
         "postcss",
