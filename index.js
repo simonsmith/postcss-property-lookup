@@ -14,7 +14,7 @@ function propertyLookup() {
         if (replacementVal) {
           return replacementVal + space;
         } else {
-          result.warn('Unable to find property ' + orig, { node: rule });
+          result.warn('Unable to find property ' + orig + ' in ' + rule.selector, { node: rule });
           return '';
         }
       });
