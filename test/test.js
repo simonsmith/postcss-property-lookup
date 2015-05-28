@@ -4,17 +4,19 @@ var plugin  = require('../');
 var fs      = require('fs');
 var path    = require('path');
 
+function readFixture(filename) {
+  return fs.readFileSync(path.join('test/fixtures', filename), 'utf-8');
+}
+
 var test = function(input, output, opts, done) {
-  input = fs.readFileSync(path.join('test/fixtures', input), 'utf-8');
-  output = fs.readFileSync(path.join('test/fixtures', output), 'utf-8');
+  input = readFixture(input);
+  output = readFixture(output);
 
   postcss([ plugin(opts) ]).process(input).then(function(result) {
     expect(result.css).to.eql(output);
     expect(result.warnings()).to.be.empty;
     done();
-  }).catch(function (error) {
-    done(error);
-  });
+  }).catch(done);
 };
 
 describe('postcss-property-lookup', function () {
@@ -24,5 +26,16 @@ describe('postcss-property-lookup', function () {
 
   it('should work with nested rules', function(done) {
     test('in/nested.css', 'out/nested.css', {}, done);
+  });
+
+  it('should ignore values when a lookup fails, and output a warning', function(done) {
+    var input = readFixture('in/invalid.css');
+    var output = readFixture('out/invalid.css');
+
+    postcss([ plugin({}) ]).process(input).then(function(result) {
+      expect(result.css).to.eql(output);
+      expect(result.warnings().length).to.equal(4);
+      done();
+    }).catch(done);
   });
 });

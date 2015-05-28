@@ -1,0 +1,5 @@
+.Invalid {
+  left: 1px;
+  top: @padding @padding;
+  margin: 10px @padding @padding 10px;
+}

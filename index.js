@@ -3,14 +3,20 @@ var postcss = require('postcss');
 module.exports = postcss.plugin('postcss-property-lookup', propertyLookup);
 
 function propertyLookup() {
-  return function(css) {
+  return function(css, result) {
     css.eachRule(function(rule) {
-      rule.replaceValues(/@([a-z-]+)/g, { fast: '@' }, function(orig, prop) {
-        var replacement;
+      rule.replaceValues(/@([a-z-]+)(\s?)/g, { fast: '@' }, function(orig, prop, space) {
+        var replacementVal;
         rule.eachDecl(prop, function(decl) {
-          replacement = decl.value;
+          replacementVal = decl.value;
         });
-        return replacement === undefined ? orig : replacement;
+
+        if (replacementVal) {
+          return replacementVal + space;
+        } else {
+          result.warn('Unable to find property ' + orig, { node: rule });
+          return '';
+        }
       });
     });
   };
