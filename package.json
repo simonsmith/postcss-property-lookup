@@ -1,29 +1,31 @@
 {
-    "name": "postcss-property-lookup",
-    "version": "0.2.1",
-    "description": "PostCSS plugin that allows referencing property values without a variable",
-    "keywords": [
-        "postcss",
-        "css",
-        "postcss-plugin",
-        "property-lookup"
-    ],
-    "author": "Simon Smith <me@simonsmith.io>",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/simonsmith/postcss-property-lookup.git"
-    },
-    "dependencies": {
-        "postcss": "^4.1.9"
-    },
-    "devDependencies": {
-        "gulp-eslint": "^0.12.0",
-        "gulp-mocha": "^2.0.1",
-        "chai": "^2.3.0",
-        "gulp": "^3.8.11"
-    },
-    "scripts": {
-        "test": "gulp"
-    }
+  "name": "postcss-property-lookup",
+  "version": "0.2.1",
+  "description": "PostCSS plugin that allows referencing property values without a variable",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "property-lookup"
+  ],
+  "author": "Simon Smith <me@simonsmith.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonsmith/postcss-property-lookup.git"
+  },
+  "dependencies": {
+    "postcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "babel": "^5.6.14",
+    "chai": "^3.0.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-eslint": "^0.15.0",
+    "gulp-mocha": "^2.1.2"
+  },
+  "scripts": {
+    "test": "gulp"
+  }
 }
