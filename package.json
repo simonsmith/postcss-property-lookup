@@ -14,6 +14,7 @@
     "type": "git",
     "url": "https://github.com/simonsmith/postcss-property-lookup.git"
   },
+  "main": "build/index.js",
   "dependencies": {
     "postcss": "^4.1.13"
   },
