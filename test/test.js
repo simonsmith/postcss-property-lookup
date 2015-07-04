@@ -1,6 +1,6 @@
 import postcss from 'postcss';
 import { expect } from 'chai';
-import plugin from '../';
+import plugin from '../lib/';
 import fs from 'fs';
 import path from 'path';
 
