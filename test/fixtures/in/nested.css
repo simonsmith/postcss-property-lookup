@@ -26,3 +26,13 @@
     }
   }
 }
+
+.Parent {
+  padding-left: 5px;
+  padding-right: @padding-left;
+
+  .Child {
+    padding-left: 10px;
+    padding-right: @padding-left;
+  }
+}
