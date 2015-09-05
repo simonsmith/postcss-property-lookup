@@ -27,6 +27,7 @@
     "gulp-mocha": "^2.1.2"
   },
   "scripts": {
-    "test": "gulp"
+    "test": "gulp",
+    "prepublish": "npm run build"
   }
 }
