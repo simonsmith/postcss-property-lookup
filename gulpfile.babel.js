@@ -1,23 +1,15 @@
 import gulp from 'gulp';
-import eslint from 'gulp-eslint';
-import mocha from 'gulp-mocha';
-import babel from 'gulp-babel';
 
-gulp.task('lint', () => {
-  return gulp.src(['lib/index.js', 'test/*.js', 'gulpfile.babel.js'])
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
-});
+function loadTask(taskName) {
+	return require(`./.tasks/gulp-${taskName}`);
+}
 
-gulp.task('build', () => {
-  return gulp.src('lib/index.js')
-    .pipe(babel())
-    .pipe(gulp.dest('build'));
-});
-
-gulp.task('test', () => {
-  return gulp.src('test/*.js', { read: false }).pipe(mocha());
-});
-
-gulp.task('default', ['lint', 'test']);
+gulp.task('default', ['eslint']);
+gulp.task('eslint', ['typescript'], loadTask('eslint'));
+gulp.task('eslint:no-clean', ['typescript:no-clean'], loadTask('eslint'));
+gulp.task('typescript', ['clean', 'tslint'], loadTask('typescript'));
+gulp.task('typescript:no-clean', ['tslint'], loadTask('typescript'));
+gulp.task('clean', loadTask('clean'));
+gulp.task('tslint', loadTask('tslint'));
+gulp.task('watch', ['typescript'], loadTask('watch'));
+gulp.task('copy', loadTask('copy'));

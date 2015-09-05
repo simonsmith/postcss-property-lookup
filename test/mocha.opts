@@ -1,0 +1,4 @@
+--inline-diffs
+--reporter spec
+--compilers js:babel-core/register
+build/test/plugin.js
