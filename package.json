@@ -28,6 +28,7 @@
   },
   "scripts": {
     "test": "gulp",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "build": "gulp build"
   }
 }
