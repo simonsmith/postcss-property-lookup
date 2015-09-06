@@ -23,7 +23,6 @@
     "templateStrings": true
   },
   "env": {
-    "mocha": true,
     "node":  true
   }
 }

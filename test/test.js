@@ -1,41 +1,249 @@
 import postcss from 'postcss';
 import { expect } from 'chai';
 import plugin from '../lib/';
-import fs from 'fs';
-import path from 'path';
-
-function readFixture(filename) {
-  return fs.readFileSync(path.join('test/fixtures', filename), 'utf-8');
-}
-
-function test(input, output, opts, done) {
-  input = readFixture(`in/${input}`);
-  output = readFixture(`out/${output}`);
-
-  postcss([ plugin(opts) ]).process(input).then((result) => {
-    expect(result.css).to.eql(output);
-    expect(result.warnings()).to.be.empty;
-    done();
-  }).catch(done);
-}
 
 describe('postcss-property-lookup', function () {
-  it('should allow property lookup', function(done) {
-    test('default.css', 'default.css', {}, done);
+
+  it('resolves a simple lookup', () => {
+    check(
+      `a {
+        foo: FOO;
+        bar: @foo;
+      }`,
+      `a {
+        foo: FOO;
+        bar: FOO;
+      }`
+    );
   });
 
-  it('should work with nested rules', function(done) {
-    test('nested.css', 'nested.css', {}, done);
+  it('resolves an out-of-order lookup', () => {
+    check(
+      `a {
+        foo: @bar;
+        bar: BAR;
+      }`,
+      `a {
+        foo: BAR;
+        bar: BAR;
+      }`
+    );
   });
 
-  it('should ignore values when a lookup fails, and output a warning', function(done) {
-    var input = readFixture('in/invalid.css');
-    var output = readFixture('out/invalid.css');
-
-    postcss([ plugin({}) ]).process(input).then(function(result) {
-      expect(result.css).to.eql(output);
-      expect(result.warnings().length).to.equal(4);
-      done();
-    }).catch(done);
+  it('resolves 2 lookups in the same rule', () => {
+    check(
+      `a {
+        foo: @bar;
+        bar: BAR;
+        baz: @bar;
+      }`,
+      `a {
+        foo: BAR;
+        bar: BAR;
+        baz: BAR;
+      }`
+    );
   });
+
+  it('resolves 2 lookups in the same value', () => {
+    check(
+      `a {
+        foo: FOO;
+        bar: BAR;
+        baz: @foo @bar;
+      }`,
+      `a {
+        foo: FOO;
+        bar: BAR;
+        baz: FOO BAR;
+      }`
+    );
+  });
+
+  it('resolves a lookup inside a rule within an at-rule', () => {
+    check(
+      `@a {
+        b {
+          foo: FOO;
+          bar: @foo;
+        }
+      }`,
+      `@a {
+        b {
+          foo: FOO;
+          bar: FOO;
+        }
+      }`
+    );
+  });
+
+  it('resolves a lookup sandwiched inside a value', () => {
+    check(
+      `a {
+        foo: FOO;
+        bar: BAR @foo BAZ;
+      }`,
+      `a {
+        foo: FOO;
+        bar: BAR FOO BAZ;
+      }`
+    );
+  });
+
+  it('resolves a lookup of a lookup', () => {
+    check(
+      `a {
+        foo: FOO;
+        bar: @foo;
+        baz: @bar;
+      }`,
+      `a {
+        foo: FOO;
+        bar: FOO;
+        baz: FOO;
+      }`
+    );
+  });
+
+  it('resolves an out-of-order lookup of a lookup', () => {
+    check(
+      `a {
+        foo: FOO;
+        bar: @baz;
+        baz: @foo;
+      }`,
+      `a {
+        foo: FOO;
+        bar: FOO;
+        baz: FOO;
+      }`
+    );
+  });
+
+  it('resolves a nested lookup', () => {
+    check(
+      `a {
+        foo: FOO;
+        foo: BAR;
+        b {
+          baz: @foo;
+        }
+      }`,
+      `a {
+        foo: FOO;
+        foo: BAR;
+        b {
+          baz: BAR;
+        }
+      }`
+    );
+  });
+
+  it('resolves a nested lookup, bubbling up the stack until found', () => {
+    check(
+      `a {
+        foo: FOO;
+        b {
+          foo: BAR;
+          foo: BAZ;
+          c {
+            qux: @foo;
+          }
+        }
+      }`,
+      `a {
+        foo: FOO;
+        b {
+          foo: BAR;
+          foo: BAZ;
+          c {
+            qux: BAZ;
+          }
+        }
+      }`
+    );
+  });
+
+  it('resolves a nested lookup without going down the stack', () => {
+    check(
+      `a {
+        foo: FOO;
+        bar: @foo;
+        b {
+          foo: BAZ;
+          bar: @foo;
+        }
+      }`,
+      `a {
+        foo: FOO;
+        bar: FOO;
+        b {
+          foo: BAZ;
+          bar: BAZ;
+        }
+      }`
+    );
+  });
+
+  describe('plugin options', () => {
+
+    describe('logLevel', () => {
+
+      describe('warn (default)', () => {
+        it('replaces a lookup that cannot be resolved with an empty string', () => {
+          check(
+            `a {
+              foo: @bar;
+            }`,
+            `a {
+              foo: ;
+            }`
+          );
+        });
+      });
+
+      describe('error', () => {
+        it('throws when a lookup cannot be resolved', () => {
+          check(
+            `a {
+              foo: @bar;
+            }`,
+            /Unable to find property @bar in a/,
+            { logLevel: 'error' }
+          );
+        });
+      });
+
+      describe('foo', () => {
+        it('throws "Invalid logLevel: foo"', () => {
+          function fn() {
+            plugin({ logLevel: 'foo' });
+          }
+          expect(fn).to.throw('Invalid logLevel: foo');
+        });
+      });
+
+    });
+
+  });
+
+  function check(actual, expected, options) {
+    const processor = postcss().use(plugin(options));
+    if (expected instanceof RegExp) {
+      expect(() => {
+        return processor.process(stripTabs(actual)).css;
+      }).to.throw(expected);
+      return;
+    }
+    expect(
+      processor.process(stripTabs(actual)).css
+    ).to.equal(
+      stripTabs(expected)
+    );
+  }
+
+  function stripTabs(input) {
+    return input.replace(/\t/g, '');
+  }
+
 });
