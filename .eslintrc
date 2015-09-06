@@ -18,6 +18,7 @@
   "ecmaFeatures": {
     "blockBindings": true,
     "modules": true,
+    "objectLiteralShorthandMethods": true,
     "destructuring": true,
     "arrowFunctions": true,
     "templateStrings": true
