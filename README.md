@@ -41,6 +41,12 @@ See [PostCSS] docs for examples for your environment.
 $ npm install postcss-property-lookup
 ```
 
+For users on the (older) PostCSS 4.x path:
+
+```
+$ npm install postcss-property-lookup@postcss-4.x
+```
+
 ## Usage
 
 ### JavaScript
