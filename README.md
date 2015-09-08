@@ -35,6 +35,35 @@ postcss([ require('postcss-property-lookup') ])
 
 See [PostCSS] docs for examples for your environment.
 
+## Installation
+
+```
+$ npm install postcss-property-lookup
+```
+
+## Usage
+
+### JavaScript
+
+```js
+postcss([
+  require('postcss-property-lookup')(/* options */),
+  // more plugins...
+])
+```
+
+### TypeScript
+
+```ts
+///<reference path="node_modules/postcss-property-lookup/.d.ts" />
+import postcssPropertyLookup from 'postcss-property-lookup';
+
+postcss([
+  postcssPropertyLookup(/* options */),
+  // more plugins...
+])
+```
+
 ## Options
 
 ### logLevel
