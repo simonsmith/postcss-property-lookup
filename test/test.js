@@ -185,6 +185,27 @@ describe('postcss-property-lookup', function () {
     );
   });
 
+  it('should work in nested media queries', () => {
+    check(
+      `a {
+        foo: FOO;
+
+        @media (min-width: 400px) {
+          foo: BAZ;
+          bar: @foo;
+        }
+      }`,
+      `a {
+        foo: FOO;
+
+        @media (min-width: 400px) {
+          foo: BAZ;
+          bar: BAZ;
+        }
+      }`
+    );
+  });
+
   describe('plugin options', () => {
 
     describe('logLevel', () => {
