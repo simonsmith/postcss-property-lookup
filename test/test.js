@@ -120,6 +120,11 @@ describe('postcss-property-lookup', function () {
     );
   });
 
+  it('preserves nested, empty at-rules', () => {
+    const css = 'a { @empty; }';
+    check(css, css);
+  });
+
   it('resolves a nested lookup', () => {
     check(
       `a {
