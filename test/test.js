@@ -240,15 +240,6 @@ describe('postcss-property-lookup', function () {
         });
       });
 
-      describe('foo', () => {
-        it('throws "Invalid logLevel: foo"', () => {
-          function fn() {
-            plugin({ logLevel: 'foo' });
-          }
-          expect(fn).to.throw('Invalid logLevel: foo');
-        });
-      });
-
     });
 
   });
