@@ -13,6 +13,8 @@
   margin-right: @margin-left;
   color: red;
   background: @color url('test.png');
+  line-height: 1.5;
+  font-size: @(line-height)em;
 }
 ```
 
@@ -22,6 +24,8 @@
   margin-right: 20px;
   color: red;
   background: red url('test.png');
+  line-height: 1.5;
+  font-size: 1.5em;
 }
 ```
 

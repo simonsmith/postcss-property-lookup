@@ -30,6 +30,19 @@ describe('postcss-property-lookup', function () {
     );
   });
 
+  it('resolves an interpolated lookup', () => {
+    check(
+      `a {
+        foo: BAR;
+        bar: @(foo)R;
+      }`,
+      `a {
+        foo: BAR;
+        bar: BARR;
+      }`
+    );
+  });
+
   it('resolves 2 lookups in the same rule', () => {
     check(
       `a {
