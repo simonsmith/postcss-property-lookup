@@ -1,9 +1,8 @@
 import postcss from 'postcss';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import plugin from '../lib/';
 
-describe('postcss-property-lookup', function () {
-
+describe('postcss-property-lookup', () => {
   it('resolves a simple lookup', () => {
     check(
       `a {
@@ -225,9 +224,7 @@ describe('postcss-property-lookup', function () {
   });
 
   describe('plugin options', () => {
-
     describe('logLevel', () => {
-
       describe('warn (default)', () => {
         it('replaces a lookup that cannot be resolved with an empty string', () => {
           check(
@@ -248,13 +245,11 @@ describe('postcss-property-lookup', function () {
               foo: @bar;
             }`,
             /Unable to find property @bar in a/,
-            { logLevel: 'error' }
+            {logLevel: 'error'}
           );
         });
       });
-
     });
-
   });
 
   function check(actual, expected, options) {
@@ -275,5 +270,4 @@ describe('postcss-property-lookup', function () {
   function stripTabs(input) {
     return input.replace(/\t/g, '');
   }
-
 });
