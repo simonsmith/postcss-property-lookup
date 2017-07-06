@@ -15,6 +15,19 @@ describe('postcss-property-lookup', () => {
     );
   });
 
+  it('handles a reference to the same property', () => {
+    check(
+      `a {
+        color: @color;
+        background: transparent;
+      }`,
+      `a {
+        color: ;
+        background: transparent;
+      }`
+    );
+  });
+
   it('resolves an out-of-order lookup', () => {
     check(
       `a {
