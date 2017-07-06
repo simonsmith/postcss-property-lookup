@@ -17,8 +17,8 @@
   "main": "build/index.js",
   "dependencies": {
     "object-assign": "^4.0.1",
-    "postcss": "^5.0.4",
-    "tcomb": "^2.5.1"
+    "postcss": "^6.0.6",
+    "tcomb": "^3.2.21"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
