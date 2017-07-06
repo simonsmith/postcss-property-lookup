@@ -21,20 +21,20 @@
     "tcomb": "^2.5.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.3.26",
-    "babel-preset-es2015": "^6.3.13",
-    "chai": "^3.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.1",
-    "gulp-mocha": "^2.1.2"
+    "jest": "^20.0.4"
   },
   "scripts": {
     "lint": "eslint lib/index.js test/test.js",
-    "test": "gulp",
-    "prepublish": "npm run build",
-    "build": "gulp build"
+    "build": "babel lib --out-dir build",
+    "test": "jest",
+    "posttest": "npm run lint",
+    "prepublish": "npm run build"
   }
 }
