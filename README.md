@@ -77,3 +77,18 @@ Required: `false`<br>
 Default: `warn`
 
 When a lookup cannot be resolved, this specifies whether to throw an error or log a warning. In the case of a warning, the invalid lookup value will be replaced with an empty string.
+
+### lookupPattern
+
+Type: `RegExp` <br>
+Required: `false` <br>
+Default: `/@\(?([a-z-]+)\)?\b/g`
+
+The regular expression by which the property will be searched
+
+For example, to enable working with [postcss-custom-media](https://github.com/postcss/postcss-custom-media), look up only css-properies @font-size, @color, ...:
+````js
+{
+  lookupPattern: /@([a-z-]+)\b/g;
+}
+```

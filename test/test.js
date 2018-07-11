@@ -214,6 +214,27 @@ describe('postcss-property-lookup', () => {
     );
   });
 
+  it('should look for the same selector above the tree', () => {
+    check(
+      `a {
+        foo: FOO;
+        div {
+          @media (max-width: 200px) {
+            foo: @foo;
+          }
+        }
+      }`,
+      `a {
+        foo: FOO;
+        div {
+          @media (max-width: 200px) {
+            foo: FOO;
+          }
+        }
+      }`
+    );
+  });
+
   it('should work in nested media queries', () => {
     check(
       `a {
