@@ -86,9 +86,17 @@ Default: `/@\(?([a-z-]+)\)?\b/g`
 
 The regular expression by which the property will be searched
 
-For example, to enable working with [postcss-custom-media](https://github.com/postcss/postcss-custom-media), look up only css-properies @font-size, @color, ...:
-````js
+For example, to enable working with [postcss-inline-media](https://github.com/postcss/postcss-inline-media), look up only css-properies @font-size, @color, ...:
+```js
 {
   lookupPattern: /@([a-z-]+)\b/g;
 }
 ```
+
+### skipUnknown
+
+Type: Boolean <br>
+Required: `false` <br>
+Default: `true`
+
+Skip replace if property was not found.

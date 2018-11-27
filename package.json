@@ -1,6 +1,6 @@
 {
-  "name": "postcss-property-lookup",
-  "version": "2.0.0",
+  "name": "@notiv/postcss-property-lookup",
+  "version": "2.0.4",
   "description": "PostCSS plugin that allows referencing property values without a variable",
   "keywords": [
     "postcss",
@@ -12,7 +12,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/simonsmith/postcss-property-lookup.git"
+    "url": "https://github.com/notiv-nt/postcss-property-lookup.git"
   },
   "main": "build/index.js",
   "dependencies": {
