@@ -1,5 +1,6 @@
-import postcss from 'postcss';
-import plugin from '../lib/';
+const postcss = require('postcss');
+const {expect} = require('chai');
+const plugin = require('../');
 
 describe('postcss-property-lookup', () => {
   it('resolves a simple lookup', () => {
@@ -269,12 +270,12 @@ describe('postcss-property-lookup', () => {
     if (expected instanceof RegExp) {
       expect(() => {
         return processor.process(stripTabs(actual)).css;
-      }).toThrow(expected);
+      }).to.throw(expected);
       return;
     }
     expect(
       processor.process(stripTabs(actual)).css
-    ).toEqual(
+    ).to.equal(
       stripTabs(expected)
     );
   }
