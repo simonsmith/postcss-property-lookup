@@ -14,27 +14,27 @@
     "type": "git",
     "url": "https://github.com/simonsmith/postcss-property-lookup.git"
   },
-  "main": "build/index.js",
+  "types": "./index.d.ts",
+  "engines": {
+    "node": ">= 10"
+  },
   "dependencies": {
-    "object-assign": "^4.0.1",
-    "postcss": "^6.0.6",
     "tcomb": "^3.2.21"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.3.26",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-env": "^1.6.0",
+    "chai": "^4.3.4",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
-    "jest": "^20.0.4"
+    "mocha": "^8.4.0",
+    "postcss": "^8.2.15"
+  },
+  "peerDependencies": {
+    "postcss": "^8.2.15"
   },
   "scripts": {
-    "lint": "eslint lib/index.js test/test.js",
-    "build": "babel lib --out-dir build",
-    "test": "jest",
-    "posttest": "npm run lint",
-    "prepublish": "npm run build"
+    "lint": "eslint index.js test/test.js",
+    "test": "mocha",
+    "posttest": "yarn lint"
   }
 }
