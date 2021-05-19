@@ -35,6 +35,6 @@
   "scripts": {
     "lint": "eslint index.js test/test.js",
     "test": "mocha",
-    "posttest": "npm run lint"
+    "posttest": "yarn lint"
   }
 }

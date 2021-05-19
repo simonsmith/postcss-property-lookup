@@ -42,7 +42,7 @@ See [PostCSS] docs for examples for your environment.
 ## Installation
 
 ```
-$ npm install postcss-property-lookup
+$ yarn add postcss-property-lookup
 ```
 
 ## Usage
